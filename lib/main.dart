@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ui/screens/parent_screen.dart';
+import 'package:flutter_ui/view/parent_page_view.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,8 +10,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: ParentScreen(),
+    return const MaterialApp(
+      home: ParentPageView(),
     );
   }
 }
