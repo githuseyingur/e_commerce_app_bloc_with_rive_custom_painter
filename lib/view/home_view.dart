@@ -50,8 +50,6 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    double widthSize = resWidthSize(context);
-    double heightSize = resHeightSize(context);
     return Scaffold(
       backgroundColor: const Color(0xFF111111),
       body: Column(
@@ -68,7 +66,7 @@ class _HomeViewState extends State<HomeView> {
                         icon: const ImageIcon(
                           AssetImage("assets/icon/filter_icon.png"),
                           color: Colors.white,
-                          size: 20,
+                          size: 22,
                         )),
                     const Spacer(),
                     IconButton(
@@ -91,15 +89,15 @@ class _HomeViewState extends State<HomeView> {
           Container(
             //SLIDER CONTAINER
             alignment: Alignment.bottomCenter,
-            padding: EdgeInsets.only(bottom: heightSize * 1.6),
+            padding: const EdgeInsets.only(bottom: 10),
             child: Stack(
               children: [
                 Positioned(
                   right: 0,
                   top: 0,
                   child: Container(
-                    width: widthSize * 81,
-                    height: widthSize * 30,
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    height: MediaQuery.of(context).size.width * 0.33,
                     decoration: BoxDecoration(
                         border: Border.all(
                             color: const Color(0xFFD7FC70), width: 2),
@@ -107,11 +105,10 @@ class _HomeViewState extends State<HomeView> {
                   ),
                 ),
                 Container(
-                  width: widthSize * 81,
-                  height: widthSize * 30,
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  height: MediaQuery.of(context).size.width * 0.33,
                   color: Colors.transparent,
-                  margin:
-                      EdgeInsets.only(right: widthSize * 2, top: widthSize * 2),
+                  margin: const EdgeInsets.only(right: 10, top: 10),
                   alignment: Alignment.bottomCenter,
                   child: CarouselSlider.builder(
                     itemCount: sliderImages.length,
@@ -137,7 +134,7 @@ class _HomeViewState extends State<HomeView> {
           Expanded(
             flex: 4,
             child: Padding(
-              padding: EdgeInsets.only(left: widthSize * 4.8, top: 5),
+              padding: const EdgeInsets.only(left: 4.8, top: 5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -168,7 +165,7 @@ class _HomeViewState extends State<HomeView> {
                 ), // CATEGORIES
               )),
           Expanded(
-              flex: 32,
+              flex: 35,
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 32, vertical: 16),

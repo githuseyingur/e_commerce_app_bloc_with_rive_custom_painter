@@ -43,9 +43,18 @@ class _UnavailableViewState extends State<UnavailableView> {
       body: Center(
         child: Column(
           children: [
-            const Expanded(
+            Expanded(
               flex: 5,
-              child: SizedBox(),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                child: Icon(
+                  Icons.arrow_back_rounded,
+                  color: Colors.white.withAlpha(220),
+                  size: 42,
+                ),
+              ),
             ),
             Expanded(
               flex: 9,
@@ -55,9 +64,7 @@ class _UnavailableViewState extends State<UnavailableView> {
                       child: GestureDetector(
                         onTap: () {
                           setState(() {
-                            _controller.isActiveChanged.addListener(() {
-                              // IF 'IsPosition1Pressed' --> State = Position1 -    // Note : There are few resources about LISTENERS
-                            });
+                            _controller.isActiveChanged.addListener(() {});
                             _controller = SimpleAnimation('Jump');
                             if (_artboard != null) {
                               _artboard!.addController(_controller);

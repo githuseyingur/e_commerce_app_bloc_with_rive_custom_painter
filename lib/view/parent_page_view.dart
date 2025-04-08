@@ -38,10 +38,6 @@ class _ParentPageViewState extends State<ParentPageView> {
 
   @override
   Widget build(BuildContext context) {
-    double widthSize = resWidthSize(
-        context); // WIDTH AND HEIGHT PARAMETERS FOR RESPONSIVE DESIGN
-    double heightSize = resHeightSize(context);
-
     return Scaffold(
       backgroundColor: const Color(0xFF111111),
       body: PageView(
@@ -56,8 +52,6 @@ class _ParentPageViewState extends State<ParentPageView> {
           selectedItemColor: const Color(0xFFD7FC70),
           unselectedItemColor: const Color(0xFF737373),
           currentIndex: selectedTab,
-          selectedFontSize: widthSize * heightSize * 0.25,
-          unselectedFontSize: widthSize * heightSize * 0.25,
           onTap: onTabTapped,
           type: BottomNavigationBarType.fixed,
           items: const [
@@ -102,20 +96,5 @@ class _ParentPageViewState extends State<ParentPageView> {
   void onTabTapped(int index) {
     // BottomNavigatonBar OnTap
     _pageController.jumpToPage(index);
-  }
-
-  double resWidthSize(BuildContext context) {
-    double widthSize;
-    if (MediaQuery.of(context).size.width > 598) {
-      widthSize = MediaQuery.of(context).size.width * 0.0072;
-    } else {
-      widthSize = MediaQuery.of(context).size.width * 0.01;
-    }
-    return widthSize;
-  }
-
-  double resHeightSize(BuildContext context) {
-    double heightSize = MediaQuery.of(context).size.height * 0.01;
-    return heightSize;
   }
 }
