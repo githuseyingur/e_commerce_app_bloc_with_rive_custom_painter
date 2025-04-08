@@ -41,10 +41,10 @@ class ProductCardWidget extends StatelessWidget {
                   backgroundColor: Colors.black.withAlpha(24),
                   child: GestureDetector(
                     onTap: favouriteOnTap,
-                    child: ImageIcon(
-                      const AssetImage("assets/heart_icon.png"),
+                    child: Icon(
+                      Icons.favorite,
                       color: favouriteColor,
-                      size: 24,
+                      size: 20,
                     ),
                   ),
                 ),

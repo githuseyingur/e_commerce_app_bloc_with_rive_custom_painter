@@ -11,7 +11,7 @@ class UnavailableView extends StatefulWidget {
 
 class _UnavailableViewState extends State<UnavailableView> {
   final riveFileName = 'monster-game.riv';
-  late Artboard _artboard;
+  Artboard? _artboard;
   late RiveAnimationController _controller;
 
   void _loadRiveFile() async {
@@ -19,19 +19,20 @@ class _UnavailableViewState extends State<UnavailableView> {
         .load('animation/$riveFileName'); // Load the animation file
     final file = RiveFile.import(bytes);
 
-    _artboard = file.mainArtboard;
-    _controller = SimpleAnimation('Thumbnail');
     setState(() {
-      _artboard.addController(_controller);
+      _artboard = file.mainArtboard;
+      _controller = SimpleAnimation('Thumbnail');
+      _artboard!.addController(_controller);
     });
   }
 
   @override
   void initState() {
+    _loadRiveFile();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
       SystemUiOverlay.bottom,
     ]);
-    _loadRiveFile();
+
     super.initState();
   }
 
@@ -48,24 +49,28 @@ class _UnavailableViewState extends State<UnavailableView> {
             ),
             Expanded(
               flex: 9,
-              child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        _controller.isActiveChanged.addListener(() {
-                          // IF 'IsPosition1Pressed' --> State = Position1 -    // Note : There are few resources about LISTENERS
-                        });
-                        _controller = SimpleAnimation('Jump');
-                        _artboard.addController(_controller);
-                      });
-                    },
-                    child: Rive(
-                      //RIVE
-                      artboard: _artboard,
-                      fit: BoxFit.fill,
-                    ),
-                  )),
+              child: _artboard != null
+                  ? Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _controller.isActiveChanged.addListener(() {
+                              // IF 'IsPosition1Pressed' --> State = Position1 -    // Note : There are few resources about LISTENERS
+                            });
+                            _controller = SimpleAnimation('Jump');
+                            if (_artboard != null) {
+                              _artboard!.addController(_controller);
+                            }
+                          });
+                        },
+                        child: Rive(
+                          //RIVE
+                          artboard: _artboard!,
+                          fit: BoxFit.fill,
+                        ),
+                      ))
+                  : const SizedBox(),
             ),
             Expanded(
               flex: 4,

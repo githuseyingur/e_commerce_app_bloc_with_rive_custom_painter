@@ -24,19 +24,19 @@ class _HomeViewState extends State<HomeView> {
   final sliderImages = [
     // SLIDER IMAGE LIST
     const Image(
-      image: AssetImage("assets/slider_image.png"),
+      image: AssetImage("assets/image/slider_image.png"),
       fit: BoxFit.fill,
     ),
     const Image(
-      image: AssetImage("assets/slider_image.png"),
+      image: AssetImage("assets/image/slider_image.png"),
       fit: BoxFit.fill,
     ),
     const Image(
-      image: AssetImage("assets/slider_image.png"),
+      image: AssetImage("assets/image/slider_image.png"),
       fit: BoxFit.fill,
     ),
     const Image(
-      image: AssetImage("assets/slider_image.png"),
+      image: AssetImage("assets/image/slider_image.png"),
       fit: BoxFit.fill,
     )
   ];
@@ -66,7 +66,7 @@ class _HomeViewState extends State<HomeView> {
                     IconButton(
                         onPressed: () {},
                         icon: const ImageIcon(
-                          AssetImage("assets/filter_icon.png"),
+                          AssetImage("assets/icon/filter_icon.png"),
                           color: Colors.white,
                           size: 20,
                         )),
@@ -74,14 +74,14 @@ class _HomeViewState extends State<HomeView> {
                     IconButton(
                         onPressed: () {},
                         icon: const ImageIcon(
-                          AssetImage("assets/search_icon.png"),
+                          AssetImage("assets/icon/search_icon.png"),
                           color: Colors.white,
                           size: 20,
                         )),
                     IconButton(
                         onPressed: () {},
                         icon: const ImageIcon(
-                          AssetImage("assets/bag_icon.png"),
+                          AssetImage("assets/icon/bag_icon.png"),
                           color: Colors.white,
                           size: 20,
                         )),

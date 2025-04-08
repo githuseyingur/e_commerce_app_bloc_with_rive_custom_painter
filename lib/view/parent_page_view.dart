@@ -63,27 +63,27 @@ class _ParentPageViewState extends State<ParentPageView> {
           items: const [
             BottomNavigationBarItem(
                 icon: ImageIcon(
-                  AssetImage("assets/navicon1.png"),
+                  AssetImage("assets/icon/navicon1.png"),
                 ),
                 label: ""),
             BottomNavigationBarItem(
                 icon: ImageIcon(
-                  AssetImage("assets/navicon2.png"),
+                  AssetImage("assets/icon/navicon2.png"),
                 ),
                 label: ""),
             BottomNavigationBarItem(
                 icon: ImageIcon(
-                  AssetImage("assets/navicon3.png"),
+                  AssetImage("assets/icon/navicon3.png"),
                 ),
                 label: ""),
             BottomNavigationBarItem(
                 icon: ImageIcon(
-                  AssetImage("assets/navicon4.png"),
+                  AssetImage("assets/icon/navicon4.png"),
                 ),
                 label: ""),
             BottomNavigationBarItem(
                 icon: ImageIcon(
-                  AssetImage("assets/navicon5.png"),
+                  AssetImage("assets/icon/navicon5.png"),
                 ),
                 label: ""),
           ],

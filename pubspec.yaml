@@ -57,24 +57,9 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
   assets:
-    - assets/navicon1.png
-    - assets/navicon2.png
-    - assets/navicon3.png
-    - assets/navicon4.png
-    - assets/navicon5.png
-    - assets/filter_icon.png
-    - assets/search_icon.png
-    - assets/bag_icon.png
-    - assets/slider_image.png
-    - assets/cardImage1.png
-    - assets/cardImage2.png
-    - assets/cardImage3.png
-    - assets/cardImage4.png
-    - assets/cardImage5.png
-    - assets/cardImage6.png
-    - animation/monster-game.riv
-    - assets/heart_icon.png
-
+    - assets/icon/
+    - assets/image/
+    - animation/
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
