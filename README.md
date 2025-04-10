@@ -1,4 +1,4 @@
-# Flutter E-Commerce App UI Design with Rive and Custom Painter
+# Flutter E-Commerce App with Bloc(Cubit) / Rive and Custom Painter
 
 * Bloc(cubit) State Management
 * Envied
