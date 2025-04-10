@@ -2,7 +2,7 @@
 
 * State Management/Architecture - **Bloc (Cubit) & MVVM --> Cubit instead of ViewModel**
 * Service - **NetworkManager & Dio**
-* Security - **envied,...**
+* Security - **envied**
 * Navigation - **go_router**
 * Responsive Design - **My custom extension optimusPrime for Texts & flutter_screenutil**
 * UI - **Rive Animation, Custom Painter, Sliders**
