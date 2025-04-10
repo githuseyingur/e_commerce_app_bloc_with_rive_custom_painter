@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ui/model/product_model.dart';
+import 'package:flutter_ui/product/global/model/product_model.dart';
 
 class ProductCardWidget extends StatelessWidget {
   const ProductCardWidget({
@@ -28,10 +28,11 @@ class ProductCardWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(32),
                 ),
                 child: ClipRRect(
-                    borderRadius: BorderRadius.circular(20),
-                    child: Image(
-                      image: AssetImage(product.imagePath),
-                    )),
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.network(
+                    product.images!.first,
+                  ),
+                ),
               ),
               Positioned(
                 right: 10,
@@ -54,14 +55,14 @@ class ProductCardWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 12),
             child: Text(
-              product.name,
+              product.title!,
               style: const TextStyle(color: Colors.white, fontSize: 16),
             ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: Text(
-              "${product.price}₺",
+              "${product.price} ${String.fromCharCode(36)}",
               style: const TextStyle(color: Colors.white, fontSize: 16),
             ),
           ),

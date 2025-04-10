@@ -1,10 +1,14 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ui/feature/home/cubit/home_cubit.dart';
+import 'package:flutter_ui/feature/home/cubit/home_state.dart';
+import 'package:flutter_ui/product/constant/color_constants.dart';
 import 'package:flutter_ui/widget/category_card_widget.dart';
 import 'package:flutter_ui/widget/product_card_widget.dart';
-import 'package:flutter_ui/model/product_model.dart';
-import 'package:flutter_ui/view/unavailable_view.dart';
+import 'package:flutter_ui/product/global/model/product_model.dart';
+import 'package:flutter_ui/feature/unavailable/view/unavailable_view.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class HomeView extends StatefulWidget {
@@ -15,8 +19,6 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  Color selectedColor = const Color(0xFFD7FC70); // CATEGORY COLORS
-  Color unselectedColor = const Color(0xFF2B2B2B);
   final categories = ["Newest", "Accessories", "Hoodie", "Dresses"];
   int selectedTab = 0;
   int activeIndex = 0; // SLIDER INDEX
@@ -51,43 +53,44 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF111111),
+      backgroundColor: ColorConstants.primaryBackground,
       body: Column(
         children: [
           Expanded(
-              flex: 7,
-              child: Container(
-                // APP BAR
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Row(
-                  children: [
-                    IconButton(
-                        onPressed: () {},
-                        icon: const ImageIcon(
-                          AssetImage("assets/icon/filter_icon.png"),
-                          color: Colors.white,
-                          size: 22,
-                        )),
-                    const Spacer(),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const ImageIcon(
-                          AssetImage("assets/icon/search_icon.png"),
-                          color: Colors.white,
-                          size: 20,
-                        )),
-                    IconButton(
-                        onPressed: () {},
-                        icon: const ImageIcon(
-                          AssetImage("assets/icon/bag_icon.png"),
-                          color: Colors.white,
-                          size: 20,
-                        )),
-                  ],
-                ),
-              )),
+            flex: 7,
+            child: Container(
+              // APP BAR
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                children: [
+                  IconButton(
+                      onPressed: () {},
+                      icon: const ImageIcon(
+                        AssetImage("assets/icon/filter_icon.png"),
+                        color: Colors.white,
+                        size: 22,
+                      )),
+                  const Spacer(),
+                  IconButton(
+                      onPressed: () {},
+                      icon: const ImageIcon(
+                        AssetImage("assets/icon/search_icon.png"),
+                        color: Colors.white,
+                        size: 20,
+                      )),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const ImageIcon(
+                      AssetImage("assets/icon/bag_icon.png"),
+                      color: Colors.white,
+                      size: 20,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
           Container(
-            //SLIDER CONTAINER
             alignment: Alignment.bottomCenter,
             padding: const EdgeInsets.only(bottom: 10),
             child: Stack(
@@ -100,7 +103,7 @@ class _HomeViewState extends State<HomeView> {
                     height: MediaQuery.of(context).size.width * 0.33,
                     decoration: BoxDecoration(
                         border: Border.all(
-                            color: const Color(0xFFD7FC70), width: 2),
+                            color: ColorConstants.primaryGreen, width: 2),
                         borderRadius: BorderRadius.circular(20)),
                   ),
                 ),
@@ -147,57 +150,65 @@ class _HomeViewState extends State<HomeView> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: ListView.builder(
-                  itemCount: categories.length,
+                  itemCount: productList
+                      .map((p) => p.category!.name!)
+                      .toSet()
+                      .toList()
+                      .length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
+                    final categoryList = productList
+                        .map((p) => p.category!.name!)
+                        .toSet()
+                        .toList();
                     return GestureDetector(
                       onTap: () {
-                        setState(() {
-                          selectedTab = index;
-                        });
+                        context
+                            .read<HomeCubit>()
+                            .setCategory(categoryList[index]);
                       },
-                      child: CategoryCardWidget(
-                        isSelected: selectedTab == index,
-                        title: categories[index],
+                      child: BlocBuilder<HomeCubit, HomeState>(
+                        builder: (context, state) {
+                          return CategoryCardWidget(
+                            isSelected:
+                                state.selectedCategory == categoryList[index],
+                            title: categoryList[index],
+                          );
+                        },
                       ),
                     );
                   },
                 ), // CATEGORIES
               )),
           Expanded(
-              flex: 35,
+              flex: 36,
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-                child: GridView.builder(
-                  itemCount: products.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: 0.6,
-                    mainAxisSpacing: 16,
-                    crossAxisSpacing: 16,
-                  ),
-                  itemBuilder: (context, index) => ProductCardWidget(
-                    product: products[index],
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const UnavailableView(),
+                child: BlocBuilder<HomeCubit, HomeState>(
+                  builder: (context, state) {
+                    return GridView.builder(
+                      itemCount: state.filteredProductList.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.6,
+                        mainAxisSpacing: 16,
+                        crossAxisSpacing: 16,
                       ),
-                    ),
-                    favouriteOnTap: () {
-                      setState(() {
-                        if (favouriteList.contains(products[index].id)) {
-                          favouriteList.remove(products[index].id);
-                        } else {
-                          favouriteList.add(products[index].id);
-                        }
-                      });
-                    },
-                    favouriteColor: favouriteList.contains(products[index].id)
-                        ? Colors.black
-                        : Colors.black26,
-                  ),
+                      itemBuilder: (context, index) => ProductCardWidget(
+                        product: state.filteredProductList[index],
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const UnavailableView(),
+                          ),
+                        ),
+                        favouriteOnTap: () {},
+                        favouriteColor: Colors.black,
+                      ),
+                    );
+                  },
                 ),
               )),
         ],
@@ -209,12 +220,13 @@ class _HomeViewState extends State<HomeView> {
         margin: const EdgeInsets.symmetric(horizontal: 20),
         child: AnimatedSmoothIndicator(
           effect: const ExpandingDotsEffect(
-              expansionFactor: 4,
-              spacing: 12,
-              dotWidth: 6,
-              dotHeight: 6,
-              activeDotColor: Color(0xFFD7FC70),
-              dotColor: Color(0xFF626262)),
+            expansionFactor: 4,
+            spacing: 12,
+            dotWidth: 6,
+            dotHeight: 6,
+            activeDotColor: ColorConstants.primaryGreen,
+            dotColor: Colors.white54, //! BAK
+          ),
           activeIndex: activeIndex,
           count: 4,
         ),

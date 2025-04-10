@@ -1,21 +1,28 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_ui/view/home_view.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_ui/feature/home/cubit/home_cubit.dart';
+import 'package:flutter_ui/feature/home/view/home_view.dart';
 
-class ParentPageView extends StatefulWidget {
-  const ParentPageView({super.key});
+class RootPageView extends StatefulWidget {
+  const RootPageView({super.key});
 
   @override
-  State<ParentPageView> createState() => _ParentPageViewState();
+  State<RootPageView> createState() => _RootPageViewState();
 }
 
-class _ParentPageViewState extends State<ParentPageView> {
+class _RootPageViewState extends State<RootPageView> {
   int selectedTab = 0;
 
   late PageController _pageController;
 
   List<Widget> tabPages = [
-    const HomeView(),
+    BlocProvider(
+      create: (context) => HomeCubit(),
+      child: const HomeView(),
+    ),
     Container(),
     Container(),
     Container(),
@@ -43,6 +50,7 @@ class _ParentPageViewState extends State<ParentPageView> {
       body: PageView(
         onPageChanged: onPageChanged,
         controller: _pageController,
+        physics: NeverScrollableScrollPhysics(),
         children: tabPages,
       ),
       bottomNavigationBar: SizedBox(

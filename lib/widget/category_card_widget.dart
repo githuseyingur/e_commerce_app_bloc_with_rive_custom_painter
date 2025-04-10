@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ui/product/helper/extensions/optimus_prime.dart';
 
 class CategoryCardWidget extends StatelessWidget {
   const CategoryCardWidget(
@@ -22,9 +23,10 @@ class CategoryCardWidget extends StatelessWidget {
         child: Text(
           title,
           style: TextStyle(
-              color: isSelected ? Colors.black : Colors.white,
-              fontSize: 15,
-              fontWeight: FontWeight.w500),
+            color: isSelected ? Colors.black : Colors.white,
+            fontSize: ResponsiveFontSize.optimusPrime(16),
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
     );

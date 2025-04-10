@@ -39,6 +39,16 @@ dependencies:
   carousel_slider: ^5.0.0
   smooth_page_indicator: ^1.0.1
   rive: ^0.13.20
+  envied: ^1.1.1
+  dio: ^5.8.0+1
+  pretty_dio_logger: ^1.4.0
+  build_runner: ^2.4.15
+  envied_generator: ^1.1.1
+  go_router: 12.0.1
+  flutter_bloc: ^9.1.0
+  flutter_screenutil: ^5.9.3
+  google_fonts: ^6.2.1
+  equatable: ^2.0.7
 
 dev_dependencies:
   flutter_test:
