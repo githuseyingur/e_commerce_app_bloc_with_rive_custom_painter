@@ -204,8 +204,14 @@ class _HomeViewState extends State<HomeView> {
                             builder: (context) => const UnavailableView(),
                           ),
                         ),
-                        favouriteOnTap: () {},
-                        favouriteColor: Colors.black,
+                        favouriteOnTap: () {
+                          context.read<HomeCubit>().setFavourite(
+                              state.filteredProductList[index].id!);
+                        },
+                        favouriteColor: state.favouriteProducts
+                                .contains(state.filteredProductList[index].id!)
+                            ? Colors.black
+                            : Colors.black26,
                       ),
                     );
                   },
@@ -236,21 +242,4 @@ class _HomeViewState extends State<HomeView> {
         margin: const EdgeInsets.symmetric(horizontal: 20),
         child: sliderImage,
       );
-
-  double resWidthSize(BuildContext context) {
-    // WIDTH and HEIGHT SIZE FOR RESPONSIVE SIZE
-    double widthSize;
-    if (MediaQuery.of(context).size.width > 424) {
-      widthSize = MediaQuery.of(context).size.width * 0.0092;
-    } else {
-      widthSize = MediaQuery.of(context).size.width * 0.01;
-    }
-
-    return widthSize;
-  }
-
-  double resHeightSize(BuildContext context) {
-    double heightSize = MediaQuery.of(context).size.height * 0.01;
-    return heightSize;
-  }
 }

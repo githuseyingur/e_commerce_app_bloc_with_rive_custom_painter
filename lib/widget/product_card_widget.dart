@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ui/product/global/model/product_model.dart';
 
 class ProductCardWidget extends StatelessWidget {
@@ -10,7 +11,7 @@ class ProductCardWidget extends StatelessWidget {
     required this.favouriteColor,
   });
   final void Function() onTap;
-  final void Function() favouriteOnTap;
+  final void Function()? favouriteOnTap;
   final ProductModel product;
   final Color favouriteColor;
 
@@ -37,11 +38,14 @@ class ProductCardWidget extends StatelessWidget {
               Positioned(
                 right: 10,
                 top: 10,
-                child: CircleAvatar(
-                  radius: 14,
-                  backgroundColor: Colors.black.withAlpha(24),
-                  child: GestureDetector(
-                    onTap: favouriteOnTap,
+                child: GestureDetector(
+                  onTap: favouriteOnTap,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.black.withAlpha(24),
+                      shape: BoxShape.circle,
+                    ),
+                    padding: EdgeInsets.all(4.w),
                     child: Icon(
                       Icons.favorite,
                       color: favouriteColor,
