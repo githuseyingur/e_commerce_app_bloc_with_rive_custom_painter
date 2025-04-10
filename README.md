@@ -1,11 +1,11 @@
 # Flutter E-Commerce App with Bloc(Cubit) / Rive and Custom Painter
 
-* State Management/Architecture - **Bloc (Cubit) & MVVM --> Cubit instead of ViewModel**
-* Service - **NetworkManager & Dio**
-* Security - **envied**
-* Navigation - **go_router**
-* Responsive Design - **My custom extension optimusPrime for Texts & flutter_screenutil**
-* UI - **Rive Animation, Custom Painter, Sliders**
+* State Management/Architecture - Bloc (Cubit) & MVVM --> Cubit instead of ViewModel
+* Service - NetworkManager & Dio
+* Security - envied
+* Navigation - go_router
+* Responsive Design - optimusPrime(My custom extension) for Texts & flutter_screenutil
+* UI - Rive Animation, Custom Painter, Sliders
 
 
 
