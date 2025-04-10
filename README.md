@@ -1,6 +1,6 @@
 # Flutter E-Commerce App with Bloc(Cubit) / Rive and Custom Painter
 
-* Bloc(cubit) State Management
+* Bloc(cubit) State Management & Architecture
 * Envied
 * Rive Animation
 * Custom Painter
