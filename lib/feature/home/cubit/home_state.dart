@@ -12,9 +12,9 @@ class HomeState extends Equatable {
   factory HomeState.initial() {
     return HomeState(
       homeState: HomeStates.initial,
-      selectedCategory: productList[0].category!.name!,
+      selectedCategory: productList[0].category!,
       filteredProductList: productList
-          .where((p) => p.category!.name! == productList[0].category!.name!)
+          .where((p) => p.category! == productList[0].category!)
           .toList(),
       favouriteProducts: user.favouriteProducts,
     );

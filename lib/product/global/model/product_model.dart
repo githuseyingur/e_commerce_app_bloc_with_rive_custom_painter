@@ -1,69 +1,62 @@
 class ProductModel {
   int? id;
   String? title;
-  String? slug;
-  int? price;
+  double? price;
   String? description;
-  Category? category;
-  List<String>? images;
+  String? category;
+  String? image;
+  Rating? rating;
 
   ProductModel(
       {this.id,
       this.title,
-      this.slug,
       this.price,
       this.description,
       this.category,
-      this.images});
+      this.image,
+      this.rating});
 
   ProductModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
-    slug = json['slug'];
-    price = json['price'];
+    price = double.parse(json['price'].toString());
     description = json['description'];
-    category = json['category'] != null
-        ? new Category.fromJson(json['category'])
-        : null;
-    images = json['images'].cast<String>();
+    category = json['category'];
+    image = json['image'];
+    rating =
+        json['rating'] != null ? new Rating.fromJson(json['rating']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['title'] = title;
-    data['slug'] = slug;
     data['price'] = price;
     data['description'] = description;
-    if (category != null) {
-      data['category'] = category!.toJson();
+    data['category'] = category;
+    data['image'] = image;
+    if (rating != null) {
+      data['rating'] = rating!.toJson();
     }
-    data['images'] = images;
     return data;
   }
 }
 
-class Category {
-  int? id;
-  String? name;
-  String? image;
-  String? slug;
+class Rating {
+  double? rate;
+  int? count;
 
-  Category({this.id, this.name, this.image, this.slug});
+  Rating({this.rate, this.count});
 
-  Category.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    image = json['image'];
-    slug = json['slug'];
+  Rating.fromJson(Map<String, dynamic> json) {
+    rate = double.parse(json['rate'].toString());
+    count = json['count'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = id;
-    data['name'] = name;
-    data['image'] = image;
-    data['slug'] = slug;
+    data['rate'] = rate;
+    data['count'] = count;
     return data;
   }
 }

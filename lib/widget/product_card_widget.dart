@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ui/product/global/model/product_model.dart';
+import 'package:flutter_ui/product/helper/extensions/optimus_prime.dart';
 
 class ProductCardWidget extends StatelessWidget {
   const ProductCardWidget({
@@ -25,19 +26,23 @@ class ProductCardWidget extends StatelessWidget {
           Stack(
             children: [
               Container(
+                width: 1.sw,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(32),
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.white,
                 ),
+                padding: EdgeInsets.all(16.w),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
                   child: Image.network(
-                    product.images!.first,
+                    product.image!,
+                    height: 0.2.sh,
                   ),
                 ),
               ),
               Positioned(
-                right: 10,
-                top: 10,
+                right: 6.w,
+                top: 6.w,
                 child: GestureDetector(
                   onTap: favouriteOnTap,
                   child: Container(
@@ -60,14 +65,23 @@ class ProductCardWidget extends StatelessWidget {
             padding: const EdgeInsets.only(top: 12),
             child: Text(
               product.title!,
-              style: const TextStyle(color: Colors.white, fontSize: 16),
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: ResponsiveFontSize.optimusPrime(16),
+              ),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            child: Text(
-              "${product.price} ${String.fromCharCode(36)}",
-              style: const TextStyle(color: Colors.white, fontSize: 16),
+          SizedBox(
+            height: 0.006.sh,
+          ),
+          Text(
+            "${product.price} ${String.fromCharCode(36)}",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: ResponsiveFontSize.optimusPrime(20),
+              fontWeight: FontWeight.w600,
             ),
           ),
         ],
