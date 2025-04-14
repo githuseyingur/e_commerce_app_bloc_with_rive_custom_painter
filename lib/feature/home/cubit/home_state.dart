@@ -8,6 +8,7 @@ class HomeState extends Equatable {
     required this.selectedCategory,
     required this.filteredProductList,
     required this.favouriteProducts,
+    required this.activeSliderIndex,
   });
   factory HomeState.initial() {
     return HomeState(
@@ -17,6 +18,7 @@ class HomeState extends Equatable {
           .where((p) => p.category! == productList[0].category!)
           .toList(),
       favouriteProducts: user.favouriteProducts,
+      activeSliderIndex: 0,
     );
   }
   final HomeStates homeState;
@@ -24,6 +26,7 @@ class HomeState extends Equatable {
 
   final List<ProductModel> filteredProductList;
   final List<int> favouriteProducts;
+  final int activeSliderIndex;
 
   @override
   List<Object?> get props => [
@@ -31,6 +34,7 @@ class HomeState extends Equatable {
         selectedCategory,
         filteredProductList,
         favouriteProducts,
+        activeSliderIndex,
       ];
 
   HomeState copyWith({
@@ -38,12 +42,14 @@ class HomeState extends Equatable {
     String? selectedCategory,
     List<ProductModel>? filteredProductList,
     List<int>? favouriteProducts,
+    int? activeSliderIndex,
   }) {
     return HomeState(
       homeState: homeState ?? this.homeState,
       selectedCategory: selectedCategory ?? this.selectedCategory,
       filteredProductList: filteredProductList ?? this.filteredProductList,
       favouriteProducts: favouriteProducts ?? this.favouriteProducts,
+      activeSliderIndex: activeSliderIndex ?? this.activeSliderIndex,
     );
   }
 }

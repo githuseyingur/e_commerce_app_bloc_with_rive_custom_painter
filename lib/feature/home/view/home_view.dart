@@ -5,12 +5,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ui/feature/home/cubit/home_cubit.dart';
 import 'package:flutter_ui/feature/home/cubit/home_state.dart';
+import 'package:flutter_ui/feature/home/widget/slider_image_widget.dart';
 import 'package:flutter_ui/feature/home/widget/slider_indicator.dart';
+import 'package:flutter_ui/feature/root/cubit/root_page_cubit.dart';
+import 'package:flutter_ui/feature/root/cubit/root_page_state.dart';
 import 'package:flutter_ui/product/constant/color_constants.dart';
-import 'package:flutter_ui/widget/category_card_widget.dart';
-import 'package:flutter_ui/widget/product_card_widget.dart';
+import 'package:flutter_ui/feature/home/widget/category_card_widget.dart';
+import 'package:flutter_ui/feature/home/widget/product_card_widget.dart';
 import 'package:flutter_ui/product/global/model/product_model.dart';
-import 'package:flutter_ui/feature/unavailable/view/unavailable_view.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -120,12 +123,17 @@ class _HomeViewState extends State<HomeView> {
                   child: CarouselSlider.builder(
                     itemCount: sliderImages.length,
                     itemBuilder: (context, index, realIndex) {
-                      final sliderImage = sliderImages[index];
-                      return buildImage(sliderImage, index);
+                      return SliderImageWidget(
+                        onTap: () {
+                          context.push('/unavailable');
+                        },
+                        sliderImage: sliderImages[index],
+                      );
                     },
                     options: CarouselOptions(
-                        onPageChanged: (index, reason) =>
-                            setState(() => activeIndex = index),
+                        onPageChanged: (index, reason) {
+                          context.read<HomeCubit>().setSliderIndex(index);
+                        },
                         autoPlay: true,
                         padEnds: false,
                         viewportFraction: 1.6,
@@ -143,7 +151,14 @@ class _HomeViewState extends State<HomeView> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: [SliderIndicator(activeIndex: activeIndex)],
+              children: [
+                BlocBuilder<HomeCubit, HomeState>(
+                  builder: (context, state) {
+                    return SliderIndicator(
+                        activeSliderIndex: state.activeSliderIndex);
+                  },
+                ),
+              ],
             ),
           ),
           SizedBox(
@@ -196,22 +211,32 @@ class _HomeViewState extends State<HomeView> {
                         crossAxisSpacing: 0.024.sw,
                         mainAxisSpacing: 0.024.sw,
                       ),
-                      itemBuilder: (context, index) => ProductCardWidget(
-                        product: state.filteredProductList[index],
-                        onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const UnavailableView(),
-                          ),
-                        ),
-                        favouriteOnTap: () {
-                          context.read<HomeCubit>().setFavourite(
-                              state.filteredProductList[index].id!);
+                      itemBuilder: (context, index) =>
+                          BlocBuilder<RootPageCubit, RootPageState>(
+                        builder: (context, rootState) {
+                          return ProductCardWidget(
+                            product: state.filteredProductList[index],
+                            onTap: () {
+                              context.push(
+                                '/product_detail',
+                                extra: {
+                                  'productId':
+                                      state.filteredProductList[index].id!,
+                                  'cubit': context.read<RootPageCubit>()
+                                },
+                              );
+                            },
+                            favouriteOnTap: () {
+                              context.read<RootPageCubit>().setFavourite(
+                                  state.filteredProductList[index].id!);
+                            },
+                            favouriteColor: rootState.favouriteProducts
+                                    .contains(
+                                        state.filteredProductList[index].id!)
+                                ? Colors.black
+                                : Colors.black26,
+                          );
                         },
-                        favouriteColor: state.favouriteProducts
-                                .contains(state.filteredProductList[index].id!)
-                            ? Colors.black
-                            : Colors.black26,
                       ),
                     );
                   },
@@ -221,9 +246,4 @@ class _HomeViewState extends State<HomeView> {
       ),
     );
   }
-
-  Widget buildImage(Image sliderImage, int index) => Container(
-        margin: const EdgeInsets.symmetric(horizontal: 20),
-        child: sliderImage,
-      );
 }

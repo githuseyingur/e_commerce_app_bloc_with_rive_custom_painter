@@ -89,7 +89,7 @@ class _UnavailableViewState extends State<UnavailableView> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                      "This product is unavailable.",
+                      "This campaign is unavailable now.",
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
@@ -99,7 +99,7 @@ class _UnavailableViewState extends State<UnavailableView> {
                       height: 6,
                     ),
                     Text(
-                      "Unfortunately, this product might be out of stock or unavailable to order.",
+                      "Unfortunately, products of this campaign might be out of stock or unavailable to order.",
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w300,
@@ -129,14 +129,15 @@ class _UnavailableViewState extends State<UnavailableView> {
                   child: CustomPaint(
                     painter: CustomShape(),
                     child: const Center(
-                        child: Text(
-                      "See What's New",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                          color: Colors.black),
-                    )),
+                      child: Text(
+                        "See What's New",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                            color: Colors.black),
+                      ),
+                    ),
                   ),
                 ),
               ),

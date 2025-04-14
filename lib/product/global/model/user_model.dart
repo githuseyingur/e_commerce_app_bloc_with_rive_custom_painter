@@ -3,4 +3,4 @@ class UserModel {
   UserModel({required this.favouriteProducts});
 }
 
-UserModel user = UserModel(favouriteProducts: []);
+UserModel user = UserModel(favouriteProducts: [1, 2]);

@@ -3,7 +3,6 @@ import 'package:equatable/equatable.dart';
 class AuthState extends Equatable {
   const AuthState({
     required this.authState,
-    required this.productState,
     required this.errorMessage,
     required this.message,
     required this.contentIndex,
@@ -21,7 +20,6 @@ class AuthState extends Equatable {
   factory AuthState.initial() {
     return const AuthState(
       authState: AuthStates.initial,
-      productState: ProductStates.initial,
       errorMessage: '',
       message: '',
       contentIndex: 0,
@@ -38,8 +36,6 @@ class AuthState extends Equatable {
     );
   }
   final AuthStates authState;
-  final ProductStates productState;
-
   final String errorMessage;
   final String message;
   final int contentIndex;
@@ -57,7 +53,6 @@ class AuthState extends Equatable {
   @override
   List<Object?> get props => [
         authState,
-        productState,
         errorMessage,
         message,
         contentIndex,
@@ -75,7 +70,6 @@ class AuthState extends Equatable {
 
   AuthState copyWith({
     AuthStates? authState,
-    ProductStates? productState,
     String? errorMessage,
     String? message,
     int? contentIndex,
@@ -92,7 +86,6 @@ class AuthState extends Equatable {
   }) {
     return AuthState(
       authState: authState ?? this.authState,
-      productState: productState ?? this.productState,
       errorMessage: errorMessage ?? this.errorMessage,
       message: message ?? this.message,
       contentIndex: contentIndex ?? this.contentIndex,
@@ -118,13 +111,6 @@ enum AuthStates {
 }
 
 enum RegisterStates {
-  initial,
-  loading,
-  completed,
-  error,
-}
-
-enum ProductStates {
   initial,
   loading,
   completed,

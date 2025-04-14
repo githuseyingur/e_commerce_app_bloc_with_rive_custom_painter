@@ -16,15 +16,19 @@ class HomeCubit extends Cubit<HomeState> {
             productList.where((p) => p.category! == category).toList()));
   }
 
-  void setFavourite(int productId) {
-    final currentFavourites = List<int>.from(state.favouriteProducts);
+  // void setFavourite(int productId) {
+  //   final currentFavourites = List<int>.from(state.favouriteProducts);
 
-    if (currentFavourites.contains(productId)) {
-      currentFavourites.remove(productId);
-    } else {
-      currentFavourites.add(productId);
-    }
+  //   if (currentFavourites.contains(productId)) {
+  //     currentFavourites.remove(productId);
+  //   } else {
+  //     currentFavourites.add(productId);
+  //   }
 
-    emit(state.copyWith(favouriteProducts: currentFavourites));
+  //   emit(state.copyWith(favouriteProducts: currentFavourites));
+  // }
+
+  void setSliderIndex(int index) {
+    emit(state.copyWith(activeSliderIndex: index));
   }
 }

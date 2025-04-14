@@ -3,9 +3,9 @@ import 'package:flutter_ui/product/constant/color_constants.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class SliderIndicator extends StatelessWidget {
-  const SliderIndicator({super.key, required this.activeIndex});
+  const SliderIndicator({super.key, required this.activeSliderIndex});
 
-  final int activeIndex;
+  final int activeSliderIndex;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class SliderIndicator extends StatelessWidget {
           activeDotColor: ColorConstants.primaryGreen,
           dotColor: Colors.white54,
         ),
-        activeIndex: activeIndex,
+        activeIndex: activeSliderIndex,
         count: 4,
       ),
     );

@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ui/feature/auth/cubit/auth_cubit.dart';
 import 'package:flutter_ui/feature/auth/cubit/auth_state.dart';
+import 'package:flutter_ui/feature/splash/cubit/splash_cubit.dart';
+import 'package:flutter_ui/feature/splash/cubit/splash_state.dart';
 import 'package:flutter_ui/product/constant/color_constants.dart';
 import 'package:flutter_ui/product/helper/extensions/optimus_prime.dart';
 import 'package:flutter_ui/product/helper/functions/get_snackbar.dart';
@@ -34,18 +36,16 @@ class _SplashViewState extends State<SplashView> {
               color: ColorConstants.primaryGreen,
               size: ResponsiveFontSize.optimusPrime(52),
             ),
-            BlocConsumer<AuthCubit, AuthState>(
+            BlocListener<SplashCubit, SplashState>(
               listener: (context, state) {
                 if (state.productState == ProductStates.completed) {
-                  context.read<AuthCubit>().setProductStateToInitial();
+                  context.read<SplashCubit>().setProductStateToInitial();
                   context.pushReplacement("/login");
                 }
               },
-              builder: (context, state) {
-                return SizedBox(
-                  height: 0.02.sh,
-                );
-              },
+              child: SizedBox(
+                height: 0.02.sh,
+              ),
             ),
             Text(
               "E-commerce App",
