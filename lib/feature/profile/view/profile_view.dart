@@ -48,6 +48,7 @@ class ProfileView extends StatelessWidget {
             BlocBuilder<RootPageCubit, RootPageState>(
               builder: (context, state) {
                 return ProfileContainerWidget(
+                  type: 0,
                   iconData: Icons.favorite,
                   onTap: () {
                     context.push('/profile_favourites',
@@ -58,12 +59,22 @@ class ProfileView extends StatelessWidget {
                 );
               },
             ),
-            ProfileContainerWidget(
-              iconData: Icons.shopping_cart,
-              onTap: () {},
-              title: 'Chart',
+            BlocBuilder<RootPageCubit, RootPageState>(
+              builder: (context, state) {
+                return ProfileContainerWidget(
+                  type: 1,
+                  iconData: Icons.shopping_cart,
+                  onTap: () {
+                    context.push('/profile_cart',
+                        extra: {'cubit': context.read<RootPageCubit>()});
+                  },
+                  title: 'Cart',
+                  count: state.productListInCart.length.toString(),
+                );
+              },
             ),
             ProfileContainerWidget(
+              type: 2,
               iconData: Icons.settings,
               onTap: () {},
               title: 'Settings',

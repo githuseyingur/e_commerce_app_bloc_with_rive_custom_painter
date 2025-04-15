@@ -389,8 +389,8 @@ class RegisterView extends StatelessWidget {
                       ScaffoldMessenger.of(context).hideCurrentSnackBar();
                       ScaffoldMessenger.of(context).showSnackBar(
                         getSnackBar(
-                          type: SnackbarEnum.error,
                           text: state.errorMessage,
+                          snackBarType: SnackBarType.light,
                         ),
                       );
                     } else if (state.registerState ==
@@ -398,8 +398,8 @@ class RegisterView extends StatelessWidget {
                       ScaffoldMessenger.of(context).hideCurrentSnackBar();
                       ScaffoldMessenger.of(context).showSnackBar(
                         getSnackBar(
-                          type: SnackbarEnum.success,
                           text: state.message,
+                          snackBarType: SnackBarType.light,
                         ),
                       );
                       context.pushReplacement("/login");

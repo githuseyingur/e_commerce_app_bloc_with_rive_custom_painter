@@ -7,6 +7,7 @@ import 'package:flutter_ui/feature/unavailable/view/unavailable_view.dart';
 import 'package:flutter_ui/product/constant/color_constants.dart';
 import 'package:flutter_ui/product/global/model/product_model.dart';
 import 'package:flutter_ui/product/helper/extensions/optimus_prime.dart';
+import 'package:flutter_ui/product/helper/functions/get_snackbar.dart';
 import 'package:go_router/go_router.dart';
 
 class ProductDetailView extends StatelessWidget {
@@ -24,45 +25,83 @@ class ProductDetailView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Stack(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
-                    width: 1.sw,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.white,
-                    ),
-                    padding: EdgeInsets.all(16.w),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Image.network(
-                        productList.firstWhere((p) => p.id == productId).image!,
-                        height: 0.2.sh,
-                      ),
+                  BlocBuilder<RootPageCubit, RootPageState>(
+                    builder: (context, state) {
+                      return GestureDetector(
+                        onTap: () {
+                          context.pop();
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.black.withAlpha(18),
+                          ),
+                          padding: EdgeInsets.all(6.w),
+                          child: Icon(
+                            Icons.arrow_back_rounded,
+                            size: ResponsiveFontSize.optimusPrime(30),
+                            color: Colors.white70,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  Text(
+                    productList
+                        .firstWhere((p) => p.id == productId)
+                        .category!
+                        .toUpperCase(),
+                    style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: ResponsiveFontSize.optimusPrime(22),
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
-                  Positioned(
-                    top: 0.012.sh,
-                    right: 0.012.sh,
-                    child: BlocBuilder<RootPageCubit, RootPageState>(
-                      builder: (context, state) {
-                        return GestureDetector(
-                          onTap: () {
-                            context
-                                .read<RootPageCubit>()
-                                .setFavourite(productId);
-                          },
+                  BlocBuilder<RootPageCubit, RootPageState>(
+                    builder: (context, state) {
+                      return GestureDetector(
+                        onTap: () {
+                          context.read<RootPageCubit>().setFavourite(productId);
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.black.withAlpha(18),
+                          ),
+                          padding: EdgeInsets.all(6.w),
                           child: Icon(
                             state.favouriteProducts.contains(productId)
                                 ? Icons.favorite
                                 : Icons.favorite_border,
-                            size: ResponsiveFontSize.optimusPrime(28),
+                            size: ResponsiveFontSize.optimusPrime(26),
+                            color: Colors.white70,
                           ),
-                        );
-                      },
-                    ),
+                        ),
+                      );
+                    },
                   ),
                 ],
+              ),
+              SizedBox(
+                height: 0.012.sh,
+              ),
+              Container(
+                width: 1.sw,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.white,
+                ),
+                padding: EdgeInsets.all(16.w),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.network(
+                    productList.firstWhere((p) => p.id == productId).image!,
+                    height: 0.2.sh,
+                  ),
+                ),
               ),
               SizedBox(
                 height: 0.01.sh,
@@ -206,21 +245,14 @@ class ProductDetailView extends StatelessWidget {
                 alignment: Alignment.center,
                 child: GestureDetector(
                   onTap: () {
+                    context.read<RootPageCubit>().addToCart(productId);
                     ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                    SnackBar snackBar = SnackBar(
-                      duration: const Duration(seconds: 2),
-                      content: Text(
-                        "Added",
-                        style: TextStyle(
-                          color: ColorConstants.textBlack,
-                          fontWeight: FontWeight.w600,
-                          fontSize: ResponsiveFontSize.optimusPrime(18),
-                        ),
-                        textAlign: TextAlign.center,
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      getSnackBar(
+                        text: "Added!",
+                        snackBarType: SnackBarType.light,
                       ),
-                      backgroundColor: const Color.fromARGB(255, 185, 216, 97),
                     );
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   },
                   child: SizedBox(
                     width: 0.54.sw,
@@ -229,7 +261,7 @@ class ProductDetailView extends StatelessWidget {
                       painter: CustomShape(),
                       child: Center(
                         child: Text(
-                          "Add to Chart",
+                          "Add to Cart",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
@@ -245,28 +277,71 @@ class ProductDetailView extends StatelessWidget {
               SizedBox(
                 height: 0.01.sh,
               ),
-              Align(
-                alignment: Alignment.center,
-                child: GestureDetector(
-                  onTap: () {
-                    context.pop();
-                  },
-                  child: Container(
-                    width: 0.4.sw,
-                    decoration: BoxDecoration(
-                        color: ColorConstants.primaryGreen,
-                        borderRadius: BorderRadius.circular(99.r),
-                        border: Border.all(
-                          width: 1.2.w,
-                          color: Colors.black26,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 0.06.sw),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8.r),
+                          color: Colors.white,
+                        ),
+                        padding: EdgeInsets.all(6.w),
+                        child: Icon(
+                          Icons.info_outline,
+                          size: ResponsiveFontSize.optimusPrime(30),
+                          color: Colors.black,
                         )),
-                    padding: EdgeInsets.all(6.w),
-                    child: Icon(
-                      Icons.arrow_back_rounded,
-                      color: Colors.black,
-                      size: ResponsiveFontSize.optimusPrime(32),
+                    GestureDetector(
+                      onTap: () {
+                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                        SnackBar snackBar = SnackBar(
+                          duration: const Duration(seconds: 2),
+                          content: Text(
+                            "Colors : no data",
+                            style: TextStyle(
+                              color: ColorConstants.textBlack,
+                              fontWeight: FontWeight.w600,
+                              fontSize: ResponsiveFontSize.optimusPrime(18),
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          backgroundColor:
+                              const Color.fromARGB(255, 185, 216, 97),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      },
+                      child: Container(
+                        width: 0.4.sw,
+                        decoration: BoxDecoration(
+                            color: ColorConstants.primaryGreen,
+                            borderRadius: BorderRadius.circular(99.r),
+                            border: Border.all(
+                              width: 1.2.w,
+                              color: Colors.black26,
+                            )),
+                        padding: EdgeInsets.all(6.w),
+                        child: Icon(
+                          Icons.palette,
+                          color: Colors.black,
+                          size: ResponsiveFontSize.optimusPrime(32),
+                        ),
+                      ),
                     ),
-                  ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8.r),
+                        color: Colors.white,
+                      ),
+                      padding: EdgeInsets.all(6.w),
+                      child: Image.asset(
+                        'assets/icon/bag_icon.png',
+                        color: Colors.black,
+                        height: ResponsiveFontSize.optimusPrime(30),
+                      ),
+                    )
+                  ],
                 ),
               ),
               SizedBox(

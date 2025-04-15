@@ -44,7 +44,7 @@ class _LoginViewState extends State<LoginView> {
                   height: 0.02.sh,
                 ),
                 Text(
-                  "Giriş Yap",
+                  "Sign In",
                   style: TextStyle(
                     color: ColorConstants.primaryGreen,
                     fontSize: ResponsiveFontSize.optimusPrime(34),
@@ -56,17 +56,17 @@ class _LoginViewState extends State<LoginView> {
                 AuthFormField(
                   validator: (val) {
                     if (val!.isEmpty) {
-                      return "Lütfen bu alanı doldurunuz";
+                      return "This field cannot be empty.";
                     } else if (ValidateRegexExtension(val).isEmail ||
                         ValidateRegexExtension(val).isPhone) {
                     } else {
-                      return 'Lütfen geçerli bir e-postası veya telefon numarası girin!..';
+                      return 'Please enter a valid email or phone number!..';
                     }
                     return null;
                   },
                   controller:
                       context.read<AuthCubit>().loginPhoneEmailTextController,
-                  hintText: "Email veya telefon numarası",
+                  hintText: "Email or Phone number",
                   hintColor: ColorConstants.textBlack.withAlpha(100),
                   keyboardType: TextInputType.emailAddress,
                 ),
@@ -78,15 +78,15 @@ class _LoginViewState extends State<LoginView> {
                     return AuthFormField(
                       validator: (val) {
                         if (val!.isEmpty) {
-                          return "Lütfen bu alanı doldurunuz";
+                          return "This field cannot be empty.";
                         } else if (val.length < 6) {
-                          return 'Şifreniz en az 6 karakter olmalıdır!';
+                          return 'Password must be at least 6 characters!';
                         }
                         return null;
                       },
                       controller:
                           context.read<AuthCubit>().loginPasswordTextController,
-                      hintText: "Şifre",
+                      hintText: "Password",
                       hintColor: ColorConstants.textBlack.withAlpha(100),
                       obscureText: state.isLoginObscure,
                       maxLines: 1,
@@ -119,7 +119,7 @@ class _LoginViewState extends State<LoginView> {
                   child: Align(
                     alignment: Alignment.centerRight,
                     child: Text(
-                      'Şifremi unuttum',
+                      'Forgot Password',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: ResponsiveFontSize.optimusPrime(16),
@@ -138,16 +138,16 @@ class _LoginViewState extends State<LoginView> {
                       ScaffoldMessenger.of(context).hideCurrentSnackBar();
                       ScaffoldMessenger.of(context).showSnackBar(
                         getSnackBar(
-                          type: SnackbarEnum.error,
                           text: state.errorMessage,
+                          snackBarType: SnackBarType.dark,
                         ),
                       );
                     } else if (state.authState == AuthStates.completed) {
                       ScaffoldMessenger.of(context).hideCurrentSnackBar();
                       ScaffoldMessenger.of(context).showSnackBar(
                         getSnackBar(
-                          type: SnackbarEnum.success,
-                          text: "Giriş Başarılı!",
+                          text: "You have successfully logged in.",
+                          snackBarType: SnackBarType.dark,
                         ),
                       );
                       context.pushReplacement("/root_page");
@@ -181,8 +181,8 @@ class _LoginViewState extends State<LoginView> {
                                 context.push('/root_page');
                               },
                         title: state.authState == AuthStates.loading
-                            ? 'GİRİŞ YAPILIYOR...'
-                            : "GİRİŞ YAP",
+                            ? 'SIGNING IN...'
+                            : "SIGN IN",
                         themeColor: ButtonThemeColors.green,
                       ),
                     );
@@ -190,7 +190,7 @@ class _LoginViewState extends State<LoginView> {
                 ),
                 SizedBox(height: 0.03.sh),
                 Text(
-                  'Henüz hesabın yok mu?',
+                  "Don't you have an account?",
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: ResponsiveFontSize.optimusPrime(18),
@@ -204,8 +204,8 @@ class _LoginViewState extends State<LoginView> {
                       context.push("/register",
                           extra: {'cubit': context.read<AuthCubit>()});
                     },
-                    title: "KAYIT OL",
-                    themeColor: ButtonThemeColors.blue,
+                    title: "REGISTER",
+                    themeColor: ButtonThemeColors.gray,
                   ),
                 ),
                 SizedBox(height: 0.03.sh),
@@ -217,8 +217,8 @@ class _LoginViewState extends State<LoginView> {
                         ScaffoldMessenger.of(context).hideCurrentSnackBar();
                         ScaffoldMessenger.of(context).showSnackBar(
                           getSnackBar(
-                            type: SnackbarEnum.error,
                             text: state.errorMessage,
+                            snackBarType: SnackBarType.light,
                           ),
                         );
                       } else if (state.guestState == GuestStates.completed) {
@@ -231,9 +231,9 @@ class _LoginViewState extends State<LoginView> {
                           // context.read<AuthCubit>().guestLogin();
                         },
                         title: state.guestState == GuestStates.loading
-                            ? 'GİRİŞ YAPILIYOR...'
-                            : 'MİSAFİR GİRİŞİ',
-                        themeColor: ButtonThemeColors.yellow,
+                            ? 'SIGNING IN...'
+                            : 'CONTINUE AS GUEST',
+                        themeColor: ButtonThemeColors.gray,
                       );
                     },
                   ),

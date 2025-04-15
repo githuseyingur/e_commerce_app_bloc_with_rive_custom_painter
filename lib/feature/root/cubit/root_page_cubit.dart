@@ -41,4 +41,16 @@ class RootPageCubit extends Cubit<RootPageState> {
 
     emit(state.copyWith(favouriteProducts: currentFavourites));
   }
+
+  void addToCart(int productId) {
+    final productCardList = List<int>.from(state.productListInCart);
+    productCardList.add(productId);
+    emit(state.copyWith(productListInCart: productCardList));
+  }
+
+  void removeFromCart(int productId) {
+    final productCardList = List<int>.from(state.productListInCart);
+    productCardList.remove(productId);
+    emit(state.copyWith(productListInCart: productCardList));
+  }
 }

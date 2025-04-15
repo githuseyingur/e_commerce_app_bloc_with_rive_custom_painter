@@ -4,6 +4,7 @@ import 'package:flutter_ui/feature/auth/cubit/auth_cubit.dart';
 import 'package:flutter_ui/feature/auth/view/login_view.dart';
 import 'package:flutter_ui/feature/auth/view/register_view.dart';
 import 'package:flutter_ui/feature/product_detail/view/product_detail_view.dart';
+import 'package:flutter_ui/feature/profile/view/profile_cart_view.dart';
 import 'package:flutter_ui/feature/profile/view/profile_favourites_view.dart';
 import 'package:flutter_ui/feature/root/cubit/root_page_cubit.dart';
 import 'package:flutter_ui/feature/splash/cubit/splash_cubit.dart';
@@ -79,6 +80,16 @@ class AppRoute {
                 value: (state.extra as Map<String, dynamic>)["cubit"]
                     as RootPageCubit,
                 child: ProfileFavouritesView(),
+              );
+            },
+          ),
+          GoRoute(
+            path: 'profile_cart',
+            builder: (BuildContext context, GoRouterState state) {
+              return BlocProvider.value(
+                value: (state.extra as Map<String, dynamic>)["cubit"]
+                    as RootPageCubit,
+                child: ProfileCartView(),
               );
             },
           ),

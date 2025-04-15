@@ -9,11 +9,13 @@ class ProfileContainerWidget extends StatelessWidget {
     required this.onTap,
     required this.iconData,
     this.count,
+    required this.type,
   });
   final String title;
   final Function() onTap;
   final IconData iconData;
   final String? count;
+  final int type;
 
   @override
   Widget build(BuildContext context) {
@@ -41,19 +43,40 @@ class ProfileContainerWidget extends StatelessWidget {
                   size: ResponsiveFontSize.optimusPrime(24),
                   color: Colors.white70,
                 ),
-                Text(
-                  title,
-                  style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: ResponsiveFontSize.optimusPrime(20),
-                  ),
-                ),
-                Text(
-                  count == null || count == '0' ? '' : count!,
-                  style: TextStyle(
-                    color: Colors.white54,
-                    fontSize: ResponsiveFontSize.optimusPrime(16),
-                  ),
+                Row(
+                  children: [
+                    Text(
+                      title,
+                      style: TextStyle(
+                        color: Colors.white70,
+                        fontSize: ResponsiveFontSize.optimusPrime(20),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 0.024.sw,
+                    ),
+                    count == null || count == '0'
+                        ? const SizedBox()
+                        : Container(
+                            width: 0.054.sw,
+                            height: 0.054.sw,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: type == 1
+                                  ? const Color.fromARGB(255, 169, 196, 95)
+                                  : Colors.white24,
+                            ),
+                            child: Text(
+                              count!,
+                              style: TextStyle(
+                                color: type == 1 ? Colors.black : Colors.white,
+                                fontSize: ResponsiveFontSize.optimusPrime(16),
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                  ],
                 ),
                 Icon(
                   Icons.keyboard_arrow_right_rounded,

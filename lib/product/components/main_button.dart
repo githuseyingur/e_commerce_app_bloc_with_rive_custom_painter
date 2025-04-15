@@ -24,14 +24,14 @@ class MainButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           splashFactory: NoSplash.splashFactory,
           backgroundColor: themeColor == ButtonThemeColors.green
-              ? ColorConstants.primaryGreen
+              ? const Color.fromARGB(255, 182, 213, 95)
               : themeColor == ButtonThemeColors.yellow
                   ? const Color(0xFFFFCE52)
                   : themeColor == ButtonThemeColors.blue
                       ? const Color.fromARGB(255, 67, 157, 213)
                       : themeColor == ButtonThemeColors.red
                           ? const Color.fromARGB(255, 207, 53, 73)
-                          : const Color.fromARGB(255, 87, 90, 81),
+                          : Colors.white70,
           padding: const EdgeInsets.symmetric(horizontal: 0),
           elevation: 0,
         ),
@@ -46,7 +46,7 @@ class MainButton extends StatelessWidget {
                     ? Colors.white
                     : themeColor == ButtonThemeColors.red
                         ? const Color.fromARGB(255, 198, 84, 99)
-                        : const Color(0xFFE3F4FF),
+                        : Colors.black,
             fontSize: ResponsiveFontSize.optimusPrime(22),
             letterSpacing: 0,
             fontWeight: FontWeight.w800,
